@@ -12,7 +12,7 @@ function GoogleDrive($gid){
 	$img = gdImg($gdurl);
 	$streaming_vid = Drive($gid);
 	$keys = array('AIzaSyCNxXAnWvUkdi0m7XTkC-EFHb2z2MQMtRo','AIzaSyCSqEAuMN_6svup7oZc_v9JRq1PHOQ_2dE','AIzaSyD7jsVh3vlw-xhJcklRTugVDSwdnfxMma4','AIzaSyDVP1vHDb9fP2fNAhd4GSRRspLMFyVt_X0','AIzaSyAFin5-mcY0LhVmjZ56jnVkuUyomb8qf6E','AIzaSyACZPjRqcxAS4q_J-MP-dAfMzZVUKqh-2Y');
-	if(empty($streaming_vid)){
+	if(empty($streaming_vid) || $streaming_vid == "Error"){
 	    	$output = ['label'=> 'auto', 'file' => 'https://www.googleapis.com/drive/v3/files/'.$gid.'?alt=media&key='.$keys[array_rand($keys)], 'type' => 'video/mp4'];
 		$output = json_encode($output, JSON_PRETTY_PRINT);
 		return $output;
@@ -102,7 +102,7 @@ function getlink($id){
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,false);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,false);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_TIMEOUT, 300);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 60);
 
 			curl_setopt($ch, CURLOPT_COOKIEJAR, dirname(__FILE__) . "/google.mp3");
 			curl_setopt($ch, CURLOPT_COOKIEFILE, dirname(__FILE__) . "/google.mp3");

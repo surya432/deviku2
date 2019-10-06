@@ -166,11 +166,7 @@ class SmmFunction
         // $fembed = new FEmbed();
         // return $fembed->fembedAccount($data, $mirror);
     }
-    // function ServerDownload($data, $mirror)
-    // {
-    //     $data = \App\mirrorkey::join('master_mirrors', 'master_mirrors.id', '=', 'mirrorkeys.master_mirror_id')->where(['mirrorkeys.cmp_id' => $data->cmp_id])->where(['master_mirrors.name' => $mirror])->first();
-    //     return $data['keys'];
-    // }
+    
 
     function RapidVideo($data, $mirror)
     {
@@ -275,13 +271,13 @@ class SmmFunction
     }
     function googledrive($data, $mirror)
     {
-        $mytime = \Carbon\Carbon::now();
         $ClientID = $this->getProviderStatus($data, $mirror);
         if (is_null($ClientID)) {
             return "";
         } else {
             $googledrive = new \App\Classes\GoogleDriveAPIS();
             $copies  = \App\Mirrorcopy::where(['drive' => $data['link']])->where(['provider' => $mirror])->first();
+     
             if (!is_null($copies)) {
                 return $this->GetPlayer($copies['url']);
             } else {
@@ -290,8 +286,8 @@ class SmmFunction
                 }
                 $keys = $this->getProviderStatus($data, $mirror);
                 $driveId = $this->GetIdDrive($data['link']);
-                 $copyID = $googledrive->GDCopy($driveId, $keys );
-               
+                $copyID = $googledrive->GDCopy($driveId, $keys );
+                
                 if (is_null($copyID) || isset($copyID['error'])) {
                     return "";
                 };
@@ -310,7 +306,23 @@ class SmmFunction
     function GetPlayer($urlDrive)
     {
         $googledrive = new \App\Classes\GoogleDriveAPIS();
-        return "http://localhost:8000/embed.php?id=".$urlDrive;
+        return "http://localhost:8000/embed.php?id=".$this->my_simple_crypt($urlDrive);
         //return $googledrive->viewsource("https://gd.nontonindrama.com/Player-Script/json.php?url=https://drive.google.com/open?id=" . $urlDrive);
     }
+    function my_simple_crypt($string, $action = 'e')
+    {
+        $secret_key = 'drivekey';
+        $secret_iv = 'google';
+        $output = false;
+        $encrypt_method = "AES-256-CBC";
+        $key = hash('sha256', $secret_key);
+        $iv = substr(hash('sha256', $secret_iv), 0, 16);
+        if ($action == 'e') {
+            $output = base64_encode(openssl_encrypt($string, $encrypt_method, $key, 0, $iv));
+        } else if ($action == 'd') {
+            $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+        }
+        return $output;
+    }
+
 }

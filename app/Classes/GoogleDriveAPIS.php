@@ -122,7 +122,7 @@ class GoogleDriveAPIS
         $response = curl_exec($curl);
         $err = curl_error($curl);
         curl_close($curl);
-        if ($err) {
+        if (isset($response['error'])) {
             return false;
         } else {
             $this->emptytrash($token);
@@ -231,24 +231,7 @@ class GoogleDriveAPIS
             return false;
         }
     }
-    function AutoDeleteGd()
-    {
-        $datass = Trash::take(10)->get();
-        if ($datass) {
-            foreach ($datass as $datass) {
-                $idcopy = $datass->idcopy;
-                $tokens = $datass->token;
-                if (!is_null($idcopy) && !is_null($tokens)) {
-                    if ($this->deletegd($this->GetIdDriveTrashed($idcopy), $tokens)) {
-                        $datass->delete();
-                    }
-                } else {
-                    $datass->delete();
-                }
-            }
-        }
-        return true;
-    }
+   
     function AutoBackupDrive()
     {
         $seconds = 1000 * 60 * 15;

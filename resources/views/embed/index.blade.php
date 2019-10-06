@@ -9,12 +9,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="token" content="{{$data->url}}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    <script type="text/javascript" src=" {{ url('/') }}/js/jwplayer.js"></script>
-    <!-- <script type="text/javascript" src="//cdn.jsdelivr.net/jwplayer/5.10/jwplayer.js"></script> -->
-    <script>
-        jwplayer.key = "zGhSOpbt7hbdG53nW3nDZE0vdyyjy0cNdaQNfA==";
-    </script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <style>
         body {
@@ -179,10 +173,10 @@
             height: $(window).height() - h
         };
 
-        $(window).resize(function() {
-            video.width = $(window).width(), video.height = $(window).height() - h, jwplayer().resize(video.width,
-                video.height)
-        });
+        // $(window).resize(function() {
+        //     video.width = $(window).width(), video.height = $(window).height() - h, jwplayer().resize(video.width,
+        //         video.height)
+        // });
     </script>
 
     <div id="list-server-more">

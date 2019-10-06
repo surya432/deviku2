@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMirrorcopiesTable extends Migration
+class CreateTrashesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateMirrorcopiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('mirrorcopies', function (Blueprint $table) {
+        Schema::dropIfExists('trashes');
+        Schema::create('trashes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('url')->nullable();
-            $table->string('status')->nullable();
-            $table->string('provider')->nullable();
-            $table->string('drive')->nullable();
-            $table->longText('apikey')->nullable();
+            $table->string('idcopy');
+            $table->longText('token');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateMirrorcopiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mirrorcopies');
+        Schema::dropIfExists('trashes');
     }
 }

@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 Route::get('/embed/{url}', 'EmbedController@getEmbed')->name('embed');
 Route::post('/embed', 'EmbedController@getPlayer')->name('getPlayer');
+Route::get('/deletegd', 'TrashController@AutoDeleteGd')->name('AutoDeleteGd');
 Route::get('/new', function () {
     return view('vendor.adminlte.register');
 });
