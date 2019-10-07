@@ -22,7 +22,7 @@ class CreateMetaLinksTable extends Migration
             $table->string('content_id');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('content_id')->references('id')->on('contents')->onDelete('cascade');
+         //   $table->foreign('content_id')->references('id')->on('contents')->onDelete('cascade');
         });
     }
 

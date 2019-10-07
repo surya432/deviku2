@@ -23,7 +23,7 @@ class CreateContentsTable extends Migration
             $table->string('post_id');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+      //      $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
         });
     }
 
