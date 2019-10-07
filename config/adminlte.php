@@ -1,5 +1,7 @@
 <?php
 
+use App\Post;
+
 return [
 
     /*
@@ -89,7 +91,7 @@ return [
 
     'logout_url' => 'logout',
 
-    'logout_method' => null,
+    'logout_method' => 'post',
 
     'login_url' => 'login',
 
