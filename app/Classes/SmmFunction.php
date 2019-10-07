@@ -102,7 +102,6 @@ class SmmFunction
                         }
                     });
                 } else {
-                    // Cache::remember("test", 60, function () use ($url, $data, $mirror, $fembed, $copies) {
                     $apikey = $fembed->getKey($this->getProviderStatus($data, $mirror), $mirror);
                     $dataCurl = $fembed->fembedCheck($apikey);
                     if ($dataCurl['success']) {
@@ -119,8 +118,6 @@ class SmmFunction
                                     $apikeyremove = $dataMirror->apikey . "&remove_ids=" . json_encode($arrayid);
                                     $dataCurl = $fembed->fembedCheck($apikeyremove);
                                 }
-                                // $apikeyremove = $apikey . "&remove_ids=" . json_encode($arrayid);
-                                // $dataCurl = $fembed->fembedCheck($apikeyremove);
                                 if ($apikeys == $copies['apikey']) {
                                     $url = $b['file_id'];
                                 }
@@ -147,24 +144,17 @@ class SmmFunction
                         $mirrorcopies->provider = $mirror;
                         $mirrorcopies->apikey = $fembed->getKey($this->getProviderStatus($data, $mirror), $mirror) . "&task_id=" . $resultCurl['data'][0];
                         $mirrorcopies->save();
-                        // return $this->sendError("Uploaded....");
                         return "";
                     } else {
                         return "";
                     }
                 } else {
-                    // return $this->sendError("API " . $mirror . " Sedang " . $ClientID['status']);
                     return "";
                 }
             }
         } else {
-            // $response = $this->sendError("Belum Setting Akun");
-            // return $response;
             return "";
         }
-
-        // $fembed = new FEmbed();
-        // return $fembed->fembedAccount($data, $mirror);
     }
     
 
@@ -277,7 +267,6 @@ class SmmFunction
         } else {
             $googledrive = new \App\Classes\GoogleDriveAPIS();
             $copies  = \App\Mirrorcopy::where(['drive' => $data['link']])->where(['provider' => $mirror])->first();
-     
             if (!is_null($copies)) {
                 return $this->GetPlayer($copies['url']);
             } else {
@@ -305,9 +294,7 @@ class SmmFunction
    
     function GetPlayer($urlDrive)
     {
-        $googledrive = new \App\Classes\GoogleDriveAPIS();
-        return "http://localhost:8000/embed.php?id=".$this->my_simple_crypt($urlDrive);
-        //return $googledrive->viewsource("https://gd.nontonindrama.com/Player-Script/json.php?url=https://drive.google.com/open?id=" . $urlDrive);
+        return url('/')."/embed.php?id=".$this->my_simple_crypt($urlDrive);
     }
     function my_simple_crypt($string, $action = 'e')
     {
