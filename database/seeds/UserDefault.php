@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Hash;
 use Spatie\Permission\Models\Role;
 
 class UserDefault extends Seeder
