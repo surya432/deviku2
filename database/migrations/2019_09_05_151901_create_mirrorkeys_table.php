@@ -20,7 +20,7 @@ class CreateMirrorkeysTable extends Migration
             $table->integer('master_mirror_id')->unsigned();
             $table->integer('cmp_id')->unsigned();
             $table->timestamps();
-            $table->foreign('master_mirror_id')->references('id')->on('master_mirrors')->onDelete('cascade');
+            // $table->foreign('master_mirror_id')->references('id')->on('master_mirrors')->onDelete('cascade');
         });
     }
 
