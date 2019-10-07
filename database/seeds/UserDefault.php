@@ -22,7 +22,7 @@ class UserDefault extends Seeder
         $cmp_id = \App\Cmp::firstOrCreate(array("name" => "localhost"))->id;
         $password= Hash::make("admin#123");
         $data = array(
-            array('name' => 'admin', 'email' => "admin@a.com", 'password'=> $password,'cmp_id'=> $cmp_id),
+            array('name' => 'admin', 'email' => "admin@a.com", 'password'=> $password, 'cmpcode'=> $cmp_id),
         );
         $user = DB::table('users')->insert($data); // Query Builder approach
         $user->assignRole("superadmin");
