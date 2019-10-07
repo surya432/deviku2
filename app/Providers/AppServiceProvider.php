@@ -26,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Schema::defaultStringLength(191);
-
+        if (env('APP_ENV') != 'local') {
+            //$url->forceScheme('https');
+            \URL::forceScheme('https');
+        }
     }
 }
