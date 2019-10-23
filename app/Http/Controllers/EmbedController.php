@@ -22,7 +22,6 @@ class EmbedController extends Controller
         if (!is_null($blockCountry)) {
             $location = GeoIP::getLocation();
             $agent = new Agent();
-            dd($agent);
             $country = $location->iso_code;
             if (in_array($country, explode(',', $blockCountry->keys)) || $country == "US" && !$agent->isMobile() || $country == "US" && !$agent->isTablet()) {
                 abort(404);
