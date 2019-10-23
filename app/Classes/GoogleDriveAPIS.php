@@ -125,7 +125,6 @@ class GoogleDriveAPIS
         if (isset($response['error'])) {
             return false;
         } else {
-            $this->emptytrash($token);
             return true;
         }
     }
