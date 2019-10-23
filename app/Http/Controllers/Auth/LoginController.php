@@ -41,7 +41,7 @@ class LoginController extends Controller
     protected function authenticated()
     {
         $user = \Auth::User();
-        $user->tokenApi()->delete(); //delete-token-yang-lama
+        //$user->tokenApi()->delete(); //delete-token-yang-lama
         $tokenset = $user->createToken($user->email);
         $tokenset->token->save();
 

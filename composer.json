@@ -13,12 +13,15 @@
         "captcha-com/laravel-captcha": "4.*",
         "fabpot/goutte": "^3.2",
         "fideloper/proxy": "^4.0",
+        "geoip2/geoip2": "^2.9",
+        "jenssegers/agent": "^2.6",
         "jeroennoten/laravel-adminlte": "^1.26",
         "laravel/framework": "5.8.*",
         "laravel/passport": "^7.4",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.8",
         "spatie/laravel-permission": "^2.37",
+        "torann/geoip": "^1.0",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

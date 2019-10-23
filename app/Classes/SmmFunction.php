@@ -156,7 +156,7 @@ class SmmFunction
             return "";
         }
     }
-    
+
 
     function RapidVideo($data, $mirror)
     {
@@ -276,7 +276,6 @@ class SmmFunction
                 $keys = $this->getProviderStatus($data, $mirror);
                 $driveId = $this->GetIdDrive($data['link']);
                 $copyID = $googledrive->GDCopy($driveId, $keys );
-                
                 if (is_null($copyID) || isset($copyID['error'])) {
                     return "";
                 };
@@ -291,7 +290,7 @@ class SmmFunction
             }
         }
     }
-   
+
     function GetPlayer($urlDrive)
     {
         return url('/')."/embed.php?id=".$this->my_simple_crypt($urlDrive);

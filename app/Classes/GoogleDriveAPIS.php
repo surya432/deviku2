@@ -165,10 +165,10 @@ class GoogleDriveAPIS
             if (isset($copyid['id'])) {
                 return $copyid['id'];
             } else {
-                return null;
+                return $copyid;
             }
         } catch (Exception $e) {
-            return null;
+            return $e;
         }
     }
     function GDMoveFolder($id, $uploadfolder)
@@ -231,7 +231,7 @@ class GoogleDriveAPIS
             return false;
         }
     }
-   
+
     function AutoBackupDrive()
     {
         $seconds = 1000 * 60 * 15;
