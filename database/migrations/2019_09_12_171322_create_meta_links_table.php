@@ -20,6 +20,7 @@ class CreateMetaLinksTable extends Migration
             $table->string('link')->nullable();
             $table->string('status')->nullable();
             $table->string('content_id');
+            $table->string('cmp_id');
             $table->timestamps();
             $table->softDeletes();
          //   $table->foreign('content_id')->references('id')->on('contents')->onDelete('cascade');

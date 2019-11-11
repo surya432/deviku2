@@ -266,9 +266,7 @@ class GoogleDriveAPIS
     }
     function checkFilesDrive($id)
     {
-
         $curl = $this->viewsource("https://www.googleapis.com/drive/v2/files/" . $id . "?key=AIzaSyARh3GYAD7zg3BFkGzuoqypfrjtt3bJH7M&supportsTeamDrives=true");
-
         $data =  json_decode($curl, true);
         if (isset($data["shared"])) {
             return ($data["shared"] == 200) ? true : false;
@@ -278,7 +276,6 @@ class GoogleDriveAPIS
     }
     function getHeaderCode($url)
     {
-
         $url = 'https://drive.google.com/file/d/' . $url . '/view';
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, true);    // we want headers

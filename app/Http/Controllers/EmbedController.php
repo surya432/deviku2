@@ -17,7 +17,6 @@ class EmbedController extends Controller
         if (is_null($data)) {
             abort(404);
         }
-
         $blockCountry = \App\mirrorkey::join('master_mirrors', 'master_mirrors.id', '=', 'mirrorkeys.master_mirror_id')->where(['mirrorkeys.cmp_id' => $data->cmp_id])->where(['master_mirrors.name' => "blockCountry"])->inRandomOrder()->first();
         if (!is_null($blockCountry)) {
             $location = GeoIP::getLocation();

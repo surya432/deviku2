@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::group(['middleware' => 'auth:api'], function () { //wajib-dengan-token
+    Route::post('/form-api-add-gmail', 'MirrorkeyController@store')->name('ApiMasterMirrorStoreGmail');
+
     Route::prefix('/ajax')->group(function () {
         Route::get('/form-master-mirror', 'MasterMirrorController@json')->name('ApiMasterMirrorJson');
         Route::post('/form-master-mirror-create', 'MasterMirrorController@store')->name('ApiMasterMirrorStore');
@@ -25,7 +27,6 @@ Route::group(['middleware' => 'auth:api'], function () { //wajib-dengan-token
         Route::get('/category/datatabel', 'CategoryController@json')->name('ApiCategoryjson');
         Route::get('/post/datatabel', 'PostController@json')->name('ApiPostjson');
         Route::get('/content/datatabel', 'ContentController@json')->name('ApiContentjson');
-       
 
     });
 });

@@ -26,6 +26,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->exec('php artisan geoip:update')->dailyAt('02.20');
+        $schedule->exec('curl --connect-timeout 360 '. url('/').'/google/delete?token=ndo')->dailyAt('02.20');
+        $schedule->exec('curl --connect-timeout 360 '. url('/').'/google/backup?token=ndo')->dailyAt('02.20');
     }
 
     /**

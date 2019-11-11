@@ -185,7 +185,6 @@ class SmmFunction
                     }
                     return null;
                 }
-
                 return "";
             } else {
                 $urlID = "";
@@ -287,6 +286,37 @@ class SmmFunction
                 $mirrorcopies->apikey = $keys['keys'];
                 $mirrorcopies->save();
                 return $this->GetPlayer($copyID);
+            }
+        }
+    }
+    function googledriveBackup($data, $mirror)
+    {
+        $ClientID = $this->getProviderStatus($data, $mirror);
+        if (is_null($ClientID)) {
+            return "";
+        } else {
+            $googledrive = new \App\Classes\GoogleDriveAPIS();
+            $copies  = \App\Mirrorcopy::where(['drive' => $data['link']])->where(['provider' => $mirror])->first();
+            if (!is_null($copies)) {
+                return false;
+            } else {
+                if ($ClientID['status'] != "Up") {
+                    return false;
+                }
+                $keys = $this->getProviderStatus($data, $mirror);
+                $driveId = $this->GetIdDrive($data['link']);
+                $copyID = $googledrive->GDCopy($driveId, $keys);
+                if (is_null($copyID) || isset($copyID['error'])) {
+                    return false;
+                };
+                $mirrorcopies  = new \App\Mirrorcopy();
+                $mirrorcopies->url = $copyID;
+                $mirrorcopies->status = "Task is Completed";
+                $mirrorcopies->drive = $data['link'];
+                $mirrorcopies->provider = $mirror;
+                $mirrorcopies->apikey = $keys['keys'];
+                $mirrorcopies->save();
+                return true;
             }
         }
     }

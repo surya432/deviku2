@@ -17,7 +17,7 @@ Route::get('/', function () {
 Route::get('/embed/{url}', 'EmbedController@getEmbed')->name('embed');
 Route::post('/embed', 'EmbedController@getPlayer')->name('getPlayer');
 Route::get('/deletegd', 'TrashController@AutoDeleteGd')->name('AutoDeleteGd');
-Route::get('/new', function () {
+Route::get('/register', function () {
     return view('vendor.adminlte.register');
 });
 Auth::routes();
@@ -32,7 +32,6 @@ Route::get('/session', function () {
 })->name('session');
 Route::get('/cmpcode', function () {
     return [
-       
         "cmp_id" => \App\User::find(1)->with('cmpcode'),
         // "supplier" => session('supplier')
     ];
@@ -51,6 +50,7 @@ Route::prefix('/admin')->group(function () {
 });
 Route::prefix('/home')->group(function () {
     Route::resource('post', 'PostController');
+    // Route::resource('post', 'ContentController');
     Route::resource('content', 'ContentController');
     Route::resource('metalink', 'MetaLinkController');
 });

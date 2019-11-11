@@ -53,7 +53,7 @@ class ContentController extends Controller
     public function create()
     {
         //
-        return view('content.create');    
+        return view('content.create');
     }
 
     /**
@@ -86,6 +86,7 @@ class ContentController extends Controller
                     $MetaLink = new MetaLink();
                     $MetaLink->kualitas = $link['kualitas'];
                     $MetaLink->link = $link['link'];
+                    $MetaLink->cmp_id = auth::user()->cmp_id;
                     $Content->links()->save($MetaLink);
                 }
             }
@@ -145,7 +146,7 @@ class ContentController extends Controller
                     $MetaLink->link = $link['link'];
                     $content->links()->save($MetaLink);
                 }
-                
+
             }
         }
         return $this->sendResponse($content->with('links')->get(), 'created successfully.');

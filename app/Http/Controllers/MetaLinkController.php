@@ -22,7 +22,8 @@ class MetaLinkController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+
+    public function create(Request $request)
     {
         //
     }
@@ -36,6 +37,37 @@ class MetaLinkController extends Controller
     public function store(Request $request)
     {
         //
+        try {
+            $input = $request->all();
+            $validator = Validator::make($input, [
+                'name' => 'required',
+                'post_id' => 'required'
+            ]);
+            if ($validator->fails()) {
+                return $this->sendError('Validation Error.', $validator->errors());
+            }
+
+            $input['url'] = md5($input['name'].rand(0,9999999));
+            $input['cmp_id'] = auth::user()->cmp_id;
+            $input['name'] = $request->input('name');
+            $input['createdBy'] = auth::user()->name;
+            // $input['post_id'] = $request->input('post_id');
+            $input['post_id'] =auth::user()->cmp_id;
+            $Content = \App\Content::create($input);
+            if($request->input('links')){
+                foreach ($request->input('links') as $a => $link) {
+                    $MetaLink = new MetaLink();
+                    $MetaLink->kualitas = $link['kualitas'];
+                    $MetaLink->link = $link['link'];
+                    $MetaLink->cmp_id = auth::user()->cmp_id;
+                    $Content->links()->save($MetaLink);
+                }
+            }
+
+            return $this->sendResponse($Content->with('links')->get(), 'created successfully.');
+        } catch (Exception $e) {
+            return $this->sendError('Something Wrong!!', $e->getMessage());
+        }
     }
 
     /**
@@ -80,7 +112,6 @@ class MetaLinkController extends Controller
      */
     public function destroy($id,MetaLink $metaLink)
     {
-        //
         $metaLink= MetaLink::find($id);
         $metaLink->delete();
         return $this->sendResponse($metaLink->toArray(), 'MetaLink deleted successfully.');
